@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     margin: 0;
     padding: 32px 0;
@@ -24,6 +25,8 @@ table {
 
 
 
+=======
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 h1, h2 { margin-left: 16px;}
 table {border-collapse: collapse;margin-left: 32px;}
 th, td {
@@ -35,6 +38,7 @@ th {background-color: #f2f2f2;}
 tr:nth-child(even) {background-color: #f9f9f9;}
 .cuForm { margin-left: 32px;}
 input, select { margin-bottom: 4px;margin-right: 12px;}
+<<<<<<< HEAD
 nav {
     background-color: #374a53;
     padding: 16px;
@@ -52,5 +56,8 @@ nav a:hover {
 
 
 
+=======
+nav {background-color: #cecece;padding: 16px;}
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 a {margin-left: 16px;}
 .homepageDescription {margin-left: 32px;}

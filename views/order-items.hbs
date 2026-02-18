@@ -5,7 +5,11 @@
     <thead>
         {{! For the table header row, we print the DB attribute names }}
         <tr>
+<<<<<<< HEAD
             {{#each orda.[0]}}
+=======
+            {{#each orderitems.[0]}}
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
             <th>
                 {{@key}}
             </th>
@@ -16,6 +20,7 @@
 
     <tbody>
         {{! For each row, print the id, fname, lname, homeworld and age }}
+<<<<<<< HEAD
         {{#each orda}}
         <tr>
             <td>{{this.[Order Item ID]}}</td>
@@ -24,6 +29,16 @@
             <td>{{this.[Quantity]}}</td>
             <td>{{this.[Item Price]}}</td>
             <td>{{this.[Line Total]}}</td>
+=======
+        {{#each orderitems}}
+        <tr>
+            <td>{{this.OrderItemID}}</td>
+            <td>{{this.OrdersID}}</td>
+            <td>{{this.MenuItemsID}}</td>
+            <td>{{this.Quantity}}</td>
+            <td>{{this.ItemPrice}}</td>
+            <td>{{this.LineTotal}}</td>
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
             {{! DELETE form }}
             <form id='delete_order_item_form'>
@@ -40,6 +55,7 @@
     </tbody>
 </table>
 
+<<<<<<< HEAD
 
 
 
@@ -73,12 +89,26 @@
 
     <label for='create_order_item_menu_item_quantity'>Quantity: </label>
     <input type='number' name='create_order_item_menu_item_quantity' id='create_order_item_menu_item_quantity' min='0' />
+=======
+{{! CREATE form }}
+<h2>Create an Order Item</h2>
+<form class='cuForm' id='create_order_item_form'>
+    <label for='create_order_item_orders_id'>Orders ID: </label>
+    <input type='text' name='create_order_item_orders_id' id='create_order_item_orders_id' required />
+
+    <label for='create_order_item_menu_items_id'>Menu Items ID: </label>
+    <input type='text' name='create_order_item_menu_items_id' id='create_order_item_menu_items_id' required />
+
+    <label for='create_order_item_quantity'>Quantity: </label>
+    <input type='number' name='create_order_item_quantity' id='create_order_item_quantity' min='0' />
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
     <input type='submit' />
 </form>
 
 {{! UPDATE form }}
 <h2>Update an Order Item</h2>
+<<<<<<< HEAD
 <form class='cuForm' id='update_order_item_menu_item_form'>
     <label for='update_order_item_menu_item_id'>Order Item to Update: </label>
     <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id' required>
@@ -88,24 +118,48 @@
             {{this.[Order Item ID]}}
             -
             {{this.[Customer]}}
+=======
+<form class='cuForm' id='update_order_item_form'>
+    <label for='update_order_item_id'>Order Item to Update: </label>
+    <select name='update_order_item_id' id='update_order_item_id' required>
+        <option value='' disabled selected>Select an Order Item</option>
+        {{#each orderitems}}
+        <option value='{{this.OrderItemID}}' required>
+            {{this.OrderItemID}}
+            -
+            {{this.OrdersID}}
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
             {{this.MenuItemsID}}
         </option>
         {{/each}}
     </select>
 
+<<<<<<< HEAD
     <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id' required>
+=======
+    <select name='update_order_item_id' id='update_order_item_id' required>
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
         <option value='' disabled selected>Select a Menu Item</option>
         {{#each menuitems}}
         <option value='{{this.MenuItemID}}' required>
             {{this.MenuItemID}}
             -
+<<<<<<< HEAD
             {{this.Name}}
+=======
+            {{this.ItemName}}
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
         </option>
         {{/each}}
     </select>    
 
+<<<<<<< HEAD
     <label for='update_order_item_menu_item_quantity'>Quantity:</label>
     <input type='number' name='update_order_item_menu_item_quantity' id='update_order_item_menu_item_quantity' min='0' />
+=======
+    <label for='create_amount'>Amount:</label>
+    <input type='number' name='create_amount' id='create_amount' min='0' />
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
     <input type='submit' />
 </form>

@@ -3,11 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+<<<<<<< HEAD
 "scripts": {
     "development": "npx nodemon app.js",
     "production": "npx forever start app.js",
     "stop_production": "npx forever stop app.js"
 },
+=======
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "development": "npx nodemon app.js",
+    "production": "npx forever start app.js",
+    "stop_production": "npx forever stop app.js"
+  },
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
   "author": "",
   "license": "ISC",
   "dependencies": {

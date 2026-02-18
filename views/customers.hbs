@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <h1>Customers!</h1>
+=======
+<h1>Customers</h1>
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
 {{! READ table }}
 <table>
@@ -18,10 +22,17 @@
         {{! For each row, print the id, fname, lname, homeworld and age }}
         {{#each customers}}
         <tr>
+<<<<<<< HEAD
             <td>{{this.[Customer ID]}}</td>
             <td>{{this.[First Name]}}</td>
             <td>{{this.[Last Name]}}</td>
             <td>{{this.[Email]}}</td>
+=======
+            <td>{{this.CustomerID}}</td>
+            <td>{{this.FirstName}}</td>
+            <td>{{this.LastName}}</td>
+            <td>{{this.Email}}</td>
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
             {{! DELETE form }}
             <form id='delete_customer_form'>
@@ -45,10 +56,17 @@
     <input type='text' name='create_customer_fname' id='create_customer_fname' required />
 
     <label for='create_customer_lname'>Last Name: </label>
+<<<<<<< HEAD
     <input type='text' name='create_customer_lname' id='create_customer_lname' required />
 
     <label for='create_customer_email'>Email: </label>
     <input type='email' name='create_customer_email' id='create_customer_email' required />
+=======
+    <input type='text' name='create_customer_lname' id='create_customer_lname' />
+
+    <label for='create_customer_email'>Email: </label>
+    <input type='text' name='create_customer_email' id='create_customer_email' />
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
     <input type='submit' />
 </form>
@@ -60,15 +78,24 @@
     <select name='update_customer_id' id='update_customer_id' required>
         <option value='' disabled selected>Select a Customer</option>
         {{#each customers}}
+<<<<<<< HEAD
         <option value='{{this.[Customer ID]}}' required>
             {{this.[Customer ID]}}
             -
             {{this.[First Name]}}
             {{this.[Last Name]}}
+=======
+        <option value='{{this.CustomerID}}' required>
+            {{this.CustomerID}}
+            -
+            {{this.FirstName}}
+            {{this.LastName}}
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
         </option>
         {{/each}}
     </select>
 
+<<<<<<< HEAD
     <label for='update_customer_fname'>First Name: </label>
     <input type='text' name='update_customer_fname' id='update_customer_fname' required />
 
@@ -77,6 +104,16 @@
 
     <label for='update_customer_email'>Email: </label>
     <input type='text' name='update_customer_email' id='update_customer_email' />
+=======
+    <label for='create_customer_fname'>First Name: </label>
+    <input type='text' name='create_customer_fname' id='create_customer_fname' required />
+
+    <label for='create_customer_lname'>Last Name: </label>
+    <input type='text' name='create_customer_lname' id='create_customer_lname' />
+
+    <label for='create_customer_email'>Email: </label>
+    <input type='text' name='create_customer_email' id='create_customer_email' />
+>>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
     <input type='submit' />
 </form>
