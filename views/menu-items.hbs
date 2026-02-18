@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <h1>Menu Items!</h1>
-=======
-<h1>Orders!</h1>
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
 {{! READ table }}
 <table>
@@ -19,13 +15,12 @@
     </thead>
 
     <tbody>
-        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{! For each row, print the data }}
         {{#each menuitems}}
         <tr>
             <td>{{this.MenuItemID}}</td>
             <td>{{this.Name}}</td>
             <td>{{this.Price}}</td>
-
 
             {{! DELETE form }}
             <form id='delete_menu_item_form'>
@@ -73,13 +68,8 @@
     <label for='update_menu_item_name'>Name: </label>
     <input type='text' name='update_menu_item_name' id='update_menu_item_name' required />
 
-<<<<<<< HEAD
     <label for='update_menu_item_price'>Price:</label>
     <input type='number' name='update_menu_item_price' id='update_menu_item_price' min='0' />
-=======
-    <label for='create_person_age'>Price:</label>
-    <input type='number' name='create_person_age' id='create_person_age' min='0' />
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
     <input type='submit' />
 </form>

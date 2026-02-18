@@ -1,53 +1,30 @@
-<<<<<<< HEAD
-<h1>Menu Items!</h1>
-=======
 <h1>Orders!</h1>
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
 {{! READ table }}
 <table>
     <thead>
-        {{! For the table header row, we print the DB attribute names }}
         <tr>
             {{#each orders.[0]}}
-            <th>
-                {{@key}}
-            </th>
+            <th>{{@key}}</th>
             {{/each}}
             <th></th>
         </tr>
     </thead>
 
     <tbody>
-        {{! For each row, print the id, fname, lname, homeworld and age }}
         {{#each orders}}
         <tr>
-<<<<<<< HEAD
             <td>{{this.[Order ID]}}</td>
             <td>{{this.[Customer Name]}}</td>
             <td>{{this.Date}}</td>
             <td>{{this.[Order Status]}}</td>
             <td>{{this.[Order Total]}}</td>
-=======
-            <td>{{this.OrderID}}</td>
-            <td>{{this.CustomerID}}</td>
-            <td>{{this.Date}}</td>
-            <td>{{this.OrderStatus}}</td>
-            <td>{{this.OrderTotal}}</td>
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 
             {{! DELETE form }}
             <form id='delete_order_form'>
-                <input type='hidden' name='delete_order_id' value='{{this.OrderID}}' />
-<<<<<<< HEAD
-                <input type='hidden' name='delete_order_customer' value='{{this.CustomerID}} {{this.Date}} {{this.OrderStatus}} {{this.OrderTotal}}' />
-=======
-                <input type='hidden' name='delete_order_name' value='{{this.CustomerID}} {{this.Date}}' />
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
+                <input type='hidden' name='delete_order_id' value='{{this.[Order ID]}}' />
                 <td>
-                    <button type='submit'>
-                        Delete
-                    </button>
+                    <button type='submit'>Delete</button>
                 </td>
             </form>
         </tr>
@@ -57,55 +34,33 @@
 
 {{! CREATE form }}
 <h2>Create an Order</h2>
-
 <form class='cuForm' id='create_order_form'>
-    <label for='create_order_id'>Customer placing Order: </label>
-    <select name='create_order_id' id='create_order_id' required>
+    <label for='create_customer_id'>Customer placing Order: </label>
+    <select name='create_customer_id' id='create_customer_id' required>
         <option value='' disabled selected>Select a Customer</option>
         {{#each customers}}
         <option value='{{this.CustomerID}}' required>
-            {{this.CustomerID}}
-            -
-            {{this.FirstName}}
-            {{this.LastName}}
+            {{this.CustomerID}} - {{this.FirstName}} {{this.LastName}}
         </option>
         {{/each}}
-<<<<<<< HEAD
-</form>
-
-<form>
-=======
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
     </select>
-    <label for='create_order_item_id'>Menu Item: </label>
-    <select name='create_order_item_id' id='create_order_item_id' required>
+
+    <label for='create_menu_item_id'>Menu Item: </label>
+    <select name='create_menu_item_id' id='create_menu_item_id' required>
         <option value='' disabled selected>Select a Menu Item</option>
         {{#each menuitems}}
         <option value='{{this.MenuItemID}}' required>
-            {{this.MenuItemID}}
-            -
-            {{this.Name}}
+            {{this.MenuItemID}} - {{this.Name}}
         </option>
         {{/each}}
-    </select>    
+    </select>
 
-<<<<<<< HEAD
     <label for='create_amount'>Quantity:</label>
     <input type='number' name='create_amount' id='create_amount' min='0' />
 
     <input type='submit' />
 </form>
 
-<h2>Total: ${{this.OrderTotal}}</h2>
-=======
-    <label for='create_amount'>Amount:</label>
-    <input type='number' name='create_amount' id='create_amount' min='0' />
-
-    <h2>Total: ${{this.OrderTotal}}</h2>
-
-</form>
-
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
 {{! UPDATE form }}
 <h2>Update an Order</h2>
 <form class='cuForm' id='update_order_form'>
@@ -113,71 +68,28 @@
     <select name='update_order_id' id='update_order_id' required>
         <option value='' disabled selected>Select an Order</option>
         {{#each orders}}
-<<<<<<< HEAD
         <option value='{{this.[Order ID]}}' required>
-            {{this.[Order ID]}}
-            -
-            {{this.[Customer Name]}}
-=======
-        <option value='{{this.OrderID}}' required>
-            {{this.OrderID}}
-            -
-            {{this.CustomerID}}
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
+            Order #{{this.[Order ID]}} - {{this.[Customer Name]}}
         </option>
         {{/each}}
     </select>
 
-
-    <form class='cuForm' id='update_order_form'>
-    <label for='update_order_id'>Customer placing Order: </label>
-    <select name='update_order_id' id='update_order_id' required>
+    <label for='update_customer_id'>Customer: </label>
+    <select name='update_customer_id' id='update_customer_id' required>
         <option value='' disabled selected>Select a Customer</option>
         {{#each customers}}
         <option value='{{this.CustomerID}}' required>
-            {{this.CustomerID}}
-            -
-            {{this.FirstName}}
-            {{this.LastName}}
+            {{this.CustomerID}} - {{this.FirstName}} {{this.LastName}}
         </option>
         {{/each}}
     </select>
-
-<<<<<<< HEAD
-    <form class='cuForm' id='update_order_form'>
-    <label for='update_order_status'>Customer placing Order: </label>
-    <select name='update_order_status' id='update_order_status' required>
-        <option value='' disabled selected>Select a Status</option>
-        <option value='0' required>
-            0 Pending
-        </option>
-        <option value='1' required>
-            1 Completed
-        </option>
-    </select>
-=======
-
-
-<form class='cuForm' id='update_order_item_form'>
-    <label for='update_order_item_id'>Menu Item: </label>
-    <select name='update_order_item_id' id='update_order_item_id' required>
-        <option value='' disabled selected>Select a Menu Item</option>
-        {{#each menuitems}}
-        <option value='{{this.MenuItemID}}' required>
-            {{this.MenuItemID}}
-            -
-            {{this.Name}}
-        </option>
-        {{/each}}
-    </select>    
-
-    <label for='create_amount'>Amount:</label>
-    <input type='number' name='create_amount' id='create_amount' min='0' />
 
     <label for='update_order_status'>Status: </label>
-    <input type='text' name='update_order_status' id='update_order_status' required />
+    <select name='update_order_status' id='update_order_status' required>
+        <option value='' disabled selected>Select a Status</option>
+        <option value='0' required>0 Pending</option>
+        <option value='1' required>1 Completed</option>
+    </select>
 
-
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
     <input type='submit' />
-</form> 
+</form>

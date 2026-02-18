@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 body {
     margin: 0;
     padding: 32px 0;
@@ -6,39 +5,50 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Headings */
+h1, h2 {
+    margin-left: 16px;
+}
+
+/* Tables */
 table {
     border-collapse: collapse;
-    margin: 24px 0 40px 0;
+    margin: 24px 32px 40px 32px;
     background-color: white;
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Forms */
 .cuForm {
-    margin: 24px 0 40px 0;
+    margin: 24px 32px 40px 32px;
     padding: 16px;
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-
-
-=======
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
-h1, h2 { margin-left: 16px;}
-table {border-collapse: collapse;margin-left: 32px;}
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
+input, select {
+    margin-bottom: 4px;
+    margin-right: 12px;
 }
-th {background-color: #f2f2f2;}
-tr:nth-child(even) {background-color: #f9f9f9;}
-.cuForm { margin-left: 32px;}
-input, select { margin-bottom: 4px;margin-right: 12px;}
-<<<<<<< HEAD
+
+/* Navigation */
 nav {
     background-color: #374a53;
     padding: 16px;
@@ -48,16 +58,14 @@ nav a {
     color: white;
     text-decoration: none;
     font-weight: 500;
+    margin-left: 16px;
 }
 
 nav a:hover {
     text-decoration: underline;
 }
 
-
-
-=======
-nav {background-color: #cecece;padding: 16px;}
->>>>>>> 796273566fcc5727fc3b4daa73f62ef48a32c34a
-a {margin-left: 16px;}
-.homepageDescription {margin-left: 32px;}
+/* Home page */
+.homepageDescription {
+    margin-left: 32px;
+}
