@@ -1,0 +1,75 @@
+<h1>Orders</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each menuitems.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each menuitems}}
+        <tr>
+            <td>{{this.MenuItemID}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Price}}</td>
+
+
+            {{! DELETE form }}
+            <form id='delete_menu_item_form'method='POST' action='/menu-items/delete'>
+                <input type='hidden' name='delete_menu_item_id' value='{{this.MenuItemID}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a Menu Item</h2>
+<form class='cuForm' id='create_menu_item_form' method='POST' action='/menu-items/create'>
+    <label for='create_menu_item_name'>Name: </label>
+    <input type='text' name='create_menu_item_name' id='create_menu_item_name' required />
+
+    <label for='create_menu_item_price'>Price:</label>
+    <input type='number' name='create_menu_item_price' id='create_menu_item_price' min='0' step=".01"/>
+
+    <input type='submit' />
+</form>
+
+{{! UPDATE form }}
+<h2>Update a Menu Item</h2>
+<form class='cuForm' id='update_menu_item_form' method='POST' action='/menu-items/update'>
+    <label for='update_menu_item_id'>Menu Item to Update: </label>
+    <select name='update_menu_item_id' id='update_menu_item_id' required>
+        <option value='' disabled selected>Select a Menu Item</option>
+        {{#each menuitems}}
+        <option value='{{this.MenuItemID}}' required>
+            {{this.MenuItemID}}
+            -
+            {{this.Name}}
+            {{this.Price}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_menu_item_name'>Name: </label>
+    <input type='text' name='update_menu_item_name' id='update_menu_item_name' required />
+
+    <label for='update_menu_item_price'>Price:</label>
+    <input type='number' name='update_menu_item_price' id='update_menu_item_price' min='0' step=".01"/>
+
+    <input type='submit' />
+</form>

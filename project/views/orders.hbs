@@ -1,0 +1,111 @@
+<h1>Orders</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each orders.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each orders}}
+        <tr>
+            <td>{{this.[Order ID]}}</td>
+            <td>{{this.[Customer Name]}}</td>
+            <td>{{this.Date}}</td>
+            <td>{{this.[Order Status]}}</td>
+            <td>{{this.[Order Total]}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_order_form' method='POST' action='/orders/delete'>
+                <input type='hidden' name='delete_order_id' value='{{this.[Order ID]}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create an Order</h2>
+
+<form class='cuForm' id='create_order_form' method='POST' action='/orders/create'>
+    <label for='create_order_id'>Customer placing Order: </label>
+    <select name='create_order_id' id='create_order_id' required>
+        <option value='' disabled selected>Select a Customer</option>
+        {{#each customers}}
+        <option value='{{this.CustomerID}}' required>
+            {{this.CustomerID}}
+            -
+            {{this.FirstName}}
+            {{this.LastName}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='create_amount'>Order Total:</label>
+    <input type='number' name='create_amount' id='create_amount' min='0' step=".01"/>
+
+    <input type='submit' />
+</form>
+
+<h2>Total: ${{this.OrderTotal}}</h2>
+{{! UPDATE form }}
+<h2>Update an Order</h2>
+<form class='cuForm' id='update_order_form' method='POST' action='/orders/update'>
+    <label for='update_order_id'>Order to Update: </label>
+    <select name='update_order_id' id='update_order_id' required>
+        <option value='' disabled selected>Select an Order</option>
+        {{#each orders}}
+        <option value='{{this.[Order ID]}}' required>
+            {{this.[Order ID]}}
+            -
+            {{this.[Customer Name]}}
+        </option>
+        {{/each}}
+    </select>
+
+
+    <form class='cuForm' id='update_customer_form'>
+    <label for='update_customer_id'>Customer placing Order: </label>
+    <select name='update_customer_id' id='update_customer_id' required>
+        <option value='' disabled selected>Select a Customer</option>
+        {{#each customers}}
+        <option value='{{this.CustomerID}}' required>
+            {{this.CustomerID}}
+            -
+            {{this.FirstName}}
+            {{this.LastName}}
+        </option>
+        {{/each}}
+    </select>
+
+    <form class='cuForm' id='update_order_form'>
+    <label for='update_order_status'>Update Status: </label>
+    <select name='update_order_status' id='update_order_status' required>
+        <option value='' disabled selected>Select a Status</option>
+        <option value='0' required>
+            0 Pending
+        </option>
+        <option value='1' required>
+            1 Completed
+        </option>
+    </select>
+
+    <label for='update_order_total'>Order Total:</label>
+    <input type='number' name='update_order_total' id='update_order_total' min='0' step=".01"/>
+
+    <input type='submit' />
+</form> 
