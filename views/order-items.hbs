@@ -1,0 +1,111 @@
+<h1>Order Items</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each orda.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each orda}}
+        <tr>
+            <td>{{this.[Order Item ID]}}</td>
+            <td>{{this.[Customer]}}</td>
+            <td>{{this.[Menu Item]}}</td>
+            <td>{{this.[Quantity]}}</td>
+            <td>{{this.[Item Price]}}</td>
+            <td>{{this.[Line Total]}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_order_item_form'>
+                <input type='hidden' name='delete_order_item_id' value='{{this.OrderItemID}}' />
+                <input type='hidden' name='delete_order_item_name' value='{{this.OrdersID}} {{this.MenuItemsID}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+
+
+{{! CREATE form }}
+<h2>Create an Order Item</h2>
+<form class='cuForm' id='create_order_item_form'>
+    <label for='create_order_id'>Order to add to: </label>
+    <select name='create_order_id' id='create_order_id' required>
+        <option value='' disabled selected>Select an Order</option>
+        {{#each orders}}
+        <option value='{{this.OrderID}}' required>
+            {{this.OrderID}}
+            -
+            {{this.CustomerID}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='create_order_item_menu_item_id'>Menu Item: </label>
+    <select name='create_order_item_menu_item_id' id='create_order_item_menu_item_id' required>
+        <option value='' disabled selected>Select a Menu Item</option>
+        {{#each menuitems}}
+        <option value='{{this.MenuItemID}}' required>
+            {{this.MenuItemID}}
+            -
+            {{this.Name}}
+        </option>
+        {{/each}}
+    </select>    
+
+
+    <label for='create_order_item_menu_item_quantity'>Quantity: </label>
+    <input type='number' name='create_order_item_menu_item_quantity' id='create_order_item_menu_item_quantity' min='0' />
+
+    <input type='submit' />
+</form>
+
+{{! UPDATE form }}
+<h2>Update an Order Item</h2>
+<form class='cuForm' id='update_order_item_menu_item_form'>
+    <label for='update_order_item_menu_item_id'>Order Item to Update: </label>
+    <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id' required>
+        <option value='' disabled selected>Select an Order Item</option>
+        {{#each orda}}
+        <option value='{{this.[Order Item ID]}}' required>
+            {{this.[Order Item ID]}}
+            -
+            {{this.[Customer]}}
+            {{this.MenuItemsID}}
+        </option>
+        {{/each}}
+    </select>
+
+    <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id' required>
+        <option value='' disabled selected>Select a Menu Item</option>
+        {{#each menuitems}}
+        <option value='{{this.MenuItemID}}' required>
+            {{this.MenuItemID}}
+            -
+            {{this.Name}}
+        </option>
+        {{/each}}
+    </select>    
+
+    <label for='update_order_item_menu_item_quantity'>Quantity:</label>
+    <input type='number' name='update_order_item_menu_item_quantity' id='update_order_item_menu_item_quantity' min='0' />
+
+    <input type='submit' />
+</form>
