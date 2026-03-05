@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const PORT = 60123;
+const PORT = process.env.PORT || 3000;
 
 // Database
 const db = require('./database/db-connector');
@@ -118,7 +118,14 @@ app.get('/order-items', async function (req, res) {
         LEFT JOIN Orders ON OrderItems.OrdersID = Orders.OrderID \
         LEFT JOIN Customers ON Orders.CustomerID = Customers.CustomerID \
         LEFT JOIN MenuItems ON OrderItems.MenuItemsID = MenuItems.MenuItemID;`;
-        const query2 = `SELECT * FROM Orders;`;
+
+        // show customer names instead of numbers in dropdown for readability
+        const query2 = `
+        SELECT Orders.OrderID,
+            CONCAT(Customers.FirstName, ' ', Customers.LastName) AS CustomerName
+        FROM Orders
+        LEFT JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+        `;
         const query3 = `SELECT * FROM MenuItems;`;
 
         const [orda] = await db.query(query1);
@@ -206,14 +213,211 @@ app.post('/customers/delete', async function (req, res) {
     }
 });
 
+// CREATE CUSTOMER ROUTE
+app.post('/customers/add', async function (req, res) {
+    try {
+        let data = req.body;
+
+        const query1 = `
+            INSERT INTO Customers (FirstName, LastName, Email)
+            VALUES (?, ?, ?);
+        `;
+        await db.query(query1, [
+            data.create_customer_fname,
+            data.create_customer_lname,
+            data.create_customer_email
+        ]);
+
+        res.redirect('/customers');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occurred while executing the database queries.');
+    }
+});
+
+// UPDATE CUSTOMER ROUTE
+app.post('/customers/update', async function (req, res) {
+    try {
+        let data = req.body;
+
+        const query1 = `
+            UPDATE Customers
+            SET FirstName = ?, LastName = ?, Email = ?
+            WHERE CustomerID = ?;
+        `;
+        await db.query(query1, [
+            data.update_customer_fname,
+            data.update_customer_lname,
+            data.update_customer_email,
+            data.update_customer_id
+        ]);
+
+        res.redirect('/customers');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occurred while executing the database queries.');
+    }
+});
+
+
 
 // ########################################
-// ########## LISTENER (moved to end of code to make sure route is hit)
+// ########## LISTENER (keep at end of code)
 
-app.listen(PORT, function () {
+// ########################################
+// ########## LISTENER (keep at end of code)
+
+const server = app.listen(PORT, function () {
     console.log(
         'Express started on http://localhost:' +
             PORT +
             '; press Ctrl-C to terminate.'
     );
 });
+
+// CREATE ORDER
+app.post('/orders/add', async function (req, res) {
+  try {
+    let d = req.body;
+
+    const q = `
+      INSERT INTO Orders (CustomerID, Date, OrderStatus, OrderTotal)
+      VALUES (?, ?, ?, 0.00);
+    `;
+    await db.query(q, [d.create_order_customer_id, d.create_order_date, d.create_order_status]);
+
+    res.redirect('/orders');
+  } catch (error) {
+    console.error('Error executing queries:', error);
+    res.status(500).send('An error occurred while executing the database queries.');
+  }
+});
+
+// UPDATE ORDER (status only)
+app.post('/orders/update', async function (req, res) {
+  try {
+    let d = req.body;
+
+    const q = `UPDATE Orders SET OrderStatus = ? WHERE OrderID = ?;`;
+    await db.query(q, [d.update_order_status, d.update_order_id]);
+
+    res.redirect('/orders');
+  } catch (error) {
+    console.error('Error executing queries:', error);
+    res.status(500).send('An error occurred while executing the database queries.');
+  }
+});
+
+// DELETE ORDER
+app.post('/orders/delete', async function (req, res) {
+  try {
+    let d = req.body;
+
+    const q = `DELETE FROM Orders WHERE OrderID = ?;`;
+    await db.query(q, [d.delete_order_id]);
+
+    res.redirect('/orders');
+  } catch (error) {
+    console.error('Error executing queries:', error);
+    res.status(500).send('An error occurred while executing the database queries.');
+  }
+});
+
+// =======================
+// ORDER ITEMS CUD ROUTES
+// =======================
+
+// CREATE ORDER ITEM
+app.post('/order-items/add', async function (req, res) {
+    try {
+        let d = req.body;
+
+        // Get price from MenuItems for the selected menu item
+        const [priceRows] = await db.query(
+            `SELECT Price FROM MenuItems WHERE MenuItemID = ?;`,
+            [d.create_order_item_menu_item_id]
+        );
+
+        const itemPrice = priceRows[0].Price;
+
+        const query1 = `
+            INSERT INTO OrderItems (OrdersID, MenuItemsID, Quantity, ItemPrice, LineTotal)
+            VALUES (?, ?, ?, ?, (? * ?));
+        `;
+
+        await db.query(query1, [
+            d.create_order_id,
+            d.create_order_item_menu_item_id,
+            d.create_order_item_menu_item_quantity,
+            itemPrice,
+            d.create_order_item_menu_item_quantity,
+            itemPrice
+        ]);
+
+        res.redirect('/order-items');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occurred while executing the database queries.');
+    }
+});
+
+// UPDATE ORDER ITEM
+app.post('/order-items/update', async function (req, res) {
+    try {
+        let d = req.body;
+
+        const [priceRows] = await db.query(
+            `SELECT Price FROM MenuItems WHERE MenuItemID = ?;`,
+            [d.update_order_item_menu_item_id]
+        );
+
+        const itemPrice = priceRows[0].Price;
+
+        const query1 = `
+            UPDATE OrderItems
+            SET MenuItemsID = ?, Quantity = ?, ItemPrice = ?, LineTotal = (? * ?)
+            WHERE OrderItemID = ?;
+        `;
+
+        await db.query(query1, [
+            d.update_order_item_menu_item_id,
+            d.update_order_item_menu_item_quantity,
+            itemPrice,
+            d.update_order_item_menu_item_quantity,
+            itemPrice,
+            d.update_order_item_id
+        ]);
+
+        res.redirect('/order-items');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occurred while executing the database queries.');
+    }
+});
+
+// DELETE ORDER ITEM
+app.post('/order-items/delete', async function (req, res) {
+    try {
+        let d = req.body;
+
+        const query1 = `DELETE FROM OrderItems WHERE OrderItemID = ?;`;
+        await db.query(query1, [d.delete_order_item_id]);
+
+        res.redirect('/order-items');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occurred while executing the database queries.');
+    }
+});
+
+// If the port bind fails
+server.on('error', (err) => {
+    console.error('SERVER ERROR:', err);
+});
+
+server.on('close', () => {
+    console.log('SERVER CLOSED');
+});
+
+// keep the event loop alive for debugging
+setInterval(() => console.log('still running...'), 10000);

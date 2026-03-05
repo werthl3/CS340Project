@@ -26,15 +26,12 @@
             <td>{{this.[Line Total]}}</td>
 
             {{! DELETE form }}
-            <form id='delete_order_item_form'>
-                <input type='hidden' name='delete_order_item_id' value='{{this.OrderItemID}}' />
-                <input type='hidden' name='delete_order_item_name' value='{{this.OrdersID}} {{this.MenuItemsID}}' />
-                <td>
-                    <button type='submit'>
-                        Delete
-                    </button>
-                </td>
-            </form>
+            <td>
+                <form method="POST" action="/order-items/delete">
+                    <input type="hidden" name="delete_order_item_id" value="{{this.[Order Item ID]}}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         {{/each}}
     </tbody>
@@ -45,15 +42,13 @@
 
 {{! CREATE form }}
 <h2>Create an Order Item</h2>
-<form class='cuForm' id='create_order_item_form'>
+<form class='cuForm' id='create_order_item_form' method="POST" action="/order-items/add">
     <label for='create_order_id'>Order to add to: </label>
     <select name='create_order_id' id='create_order_id' required>
         <option value='' disabled selected>Select an Order</option>
         {{#each orders}}
-        <option value='{{this.OrderID}}' required>
-            {{this.OrderID}}
-            -
-            {{this.CustomerID}}
+        <option value='{{this.OrderID}}'>
+            {{this.OrderID}} - {{this.CustomerName}}
         </option>
         {{/each}}
     </select>
@@ -79,9 +74,9 @@
 
 {{! UPDATE form }}
 <h2>Update an Order Item</h2>
-<form class='cuForm' id='update_order_item_menu_item_form'>
-    <label for='update_order_item_menu_item_id'>Order Item to Update: </label>
-    <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id' required>
+<form class='cuForm' id='update_order_item_menu_item_form' method="POST" action="/order-items/update">
+    <label for='update_order_item_id'>Order Item to Update: </label>
+    <select name='update_order_item_id' id='update_order_item_id' required>
         <option value='' disabled selected>Select an Order Item</option>
         {{#each orda}}
         <option value='{{this.[Order Item ID]}}' required>
@@ -93,7 +88,7 @@
         {{/each}}
     </select>
 
-    <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id' required>
+    <select name='update_order_item_menu_item_id' id='update_order_item_menu_item_id_new' required>
         <option value='' disabled selected>Select a Menu Item</option>
         {{#each menuitems}}
         <option value='{{this.MenuItemID}}' required>

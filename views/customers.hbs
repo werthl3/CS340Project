@@ -40,7 +40,7 @@
     </tbody>
 </table>
 <h2>Create a Customer</h2>
-<form class='cuForm' id='create_customer_form'>
+<form class='cuForm' id='create_customer_form' method="POST" action="/customers/add">
     <label for='create_customer_fname'>First Name: </label>
     <input type='text' name='create_customer_fname' id='create_customer_fname' required />
 
@@ -55,7 +55,7 @@
 
 {{! UPDATE form }}
 <h2>Update a Customer</h2>
-<form class='cuForm' id='update_customer_form'>
+<form class='cuForm' id='update_customer_form' method="POST" action="/customers/update">
     <label for='update_customer_id'>Customer to Update: </label>
     <select name='update_customer_id' id='update_customer_id' required>
         <option value='' disabled selected>Select a Customer</option>
