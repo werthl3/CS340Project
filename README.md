@@ -29,3 +29,22 @@ node app.js
 5. Open in browser
 
 http://localhost:3000
+
+--------------------------------------------------------------------------
+
+Below are example screenshots of the application:
+
+### Home Page
+![Home Page](Screenshots/Home.png)
+
+### Orders Page
+![Orders Page](Screenshots/Orders.png)
+
+### Customers Page
+![Customers Page](Screenshots/Customers.png)
+
+### Order Items Page
+![Order Items Page](Screenshots/OrderItems.png)
+
+### Menu Items Page
+![Menu Items Page](Screenshots/MenuItems.png)

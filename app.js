@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 60123;
 
 // Database
 const db = require('./database/db-connector');
@@ -60,7 +60,7 @@ app.get('/customers', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT Customers.CustomerID AS 'Customer ID', Customers.FirstName AS 'First Name',   
+        const query1 = `SELECT Customers.CustomerID AS 'Customer ID', Customers.FirstName AS 'First Name',
         Customers.LastName AS 'Last Name', Customers.Email FROM Customers;`;
         const [customers] = await db.query(query1);
 
@@ -90,7 +90,7 @@ app.get('/orders', async function (req, res) {
         const [orders] = await db.query(query1);
         const [customers] = await db.query(query2);
         const [menuitems] = await db.query(query3);
-        
+
 
 
         res.render('orders', { orders: orders, customers: customers, menuitems: menuitems });
